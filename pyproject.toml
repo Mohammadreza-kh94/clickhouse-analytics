@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "clickhouse-analytics"
+version = "0.1.0"
+description = "ClickHouse analytics application with FastAPI"
+authors = ["Farzad Khoobbakht f69.khoobbakht@gmail.com"]
+readme = "README.md"
+packages = [{include = "app"}]
+
+[tool.poetry.dependencies]
+python = ">=3.8,<4.0"
+fastapi = "^0.110.0"
+uvicorn = "^0.23.2"
+clickhouse-connect = "^0.6.8"
+pydantic = "^2.0.3"
+python-dotenv = "^1.0.0"
+httpx = "^0.24.1"
+requests = "^2.32.3"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.0.0"
+black = "^23.1.0"
+isort = "^5.12.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
