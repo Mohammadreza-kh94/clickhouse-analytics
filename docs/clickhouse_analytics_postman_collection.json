@@ -1,0 +1,236 @@
+{
+	"info": {
+		"_postman_id": "b3c857e2-6d7a-4e29-9d54-cf4f9bd8a791",
+		"name": "ClickHouse Analytics API",
+		"description": "API collection for interacting with the ClickHouse Analytics FastAPI application",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Health Check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						""
+					]
+				},
+				"description": "Check if the API is running"
+			},
+			"response": []
+		},
+		{
+			"name": "Events",
+			"item": [
+				{
+					"name": "Track Page View",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"event_id\": \"{{$guid}}\",\n    \"user_id\": \"user123\",\n    \"session_id\": \"session456\",\n    \"page_url\": \"/products/123\",\n    \"referrer\": \"https://google.com\",\n    \"user_agent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36\",\n    \"ip_address\": \"192.168.1.1\",\n    \"country\": \"United States\",\n    \"city\": \"New York\",\n    \"device_type\": \"desktop\",\n    \"browser\": \"Chrome\",\n    \"os\": \"Windows\",\n    \"event_time\": \"{{$isoTimestamp}}\",\n    \"load_time\": 1200\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/events/page-view",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"events",
+								"page-view"
+							]
+						},
+						"description": "Track a page view event"
+					},
+					"response": []
+				},
+				{
+					"name": "Track User Action",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"event_id\": \"{{$guid}}\",\n    \"user_id\": \"user123\",\n    \"session_id\": \"session456\",\n    \"page_url\": \"/products/123\",\n    \"action_type\": \"click\",\n    \"action_data\": \"{\\\"element\\\": \\\"add_to_cart\\\", \\\"product_id\\\": \\\"123\\\"}\",\n    \"event_time\": \"{{$isoTimestamp}}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/events/user-action",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"events",
+								"user-action"
+							]
+						},
+						"description": "Track a user action event"
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints for tracking events"
+		},
+		{
+			"name": "Analytics",
+			"item": [
+				{
+					"name": "Get Page Views Analytics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/analytics/page-views?start_date={{start_date}}&end_date={{end_date}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"analytics",
+								"page-views"
+							],
+							"query": [
+								{
+									"key": "start_date",
+									"value": "{{start_date}}",
+									"description": "Start date in ISO format"
+								},
+								{
+									"key": "end_date",
+									"value": "{{end_date}}",
+									"description": "End date in ISO format"
+								}
+							]
+						},
+						"description": "Get analytics data for page views"
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Actions Analytics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/analytics/user-actions?start_date={{start_date}}&end_date={{end_date}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"analytics",
+								"user-actions"
+							],
+							"query": [
+								{
+									"key": "start_date",
+									"value": "{{start_date}}",
+									"description": "Start date in ISO format"
+								},
+								{
+									"key": "end_date",
+									"value": "{{end_date}}",
+									"description": "End date in ISO format"
+								}
+							]
+						},
+						"description": "Get analytics data for user actions"
+					},
+					"response": []
+				},
+				{
+					"name": "Perform Funnel Analysis",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"funnel_steps\": [\n        \"/\",\n        \"/products/123\",\n        \"/cart\",\n        \"/checkout\",\n        \"/order/confirmed\"\n    ],\n    \"start_date\": \"{{start_date}}\",\n    \"end_date\": \"{{end_date}}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/analytics/funnel-analysis",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"analytics",
+								"funnel-analysis"
+							]
+						},
+						"description": "Perform funnel analysis for a sequence of pages"
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints for retrieving analytics data"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"// You can add pre-request scripts here"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"// You can add test scripts here"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8000",
+			"type": "string",
+			"description": "Base URL for the API"
+		},
+		{
+			"key": "start_date",
+			"value": "{{$isoTimestamp}}",
+			"type": "string",
+			"description": "Start date for analytics (30 days ago by default)"
+		},
+		{
+			"key": "end_date",
+			"value": "{{$isoTimestamp}}",
+			"type": "string",
+			"description": "End date for analytics (current time by default)"
+		}
+	]
+}
